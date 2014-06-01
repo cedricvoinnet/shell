@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Mon May 12 19:47:07 2014 gottin_o
-** Last update Fri May 30 15:21:45 2014 gottin_o
+** Last update Sun Jun  1 14:00:56 2014 voinne_c
 */
 
 #include <stdlib.h>
@@ -29,7 +29,7 @@ t_node		*new_node(char *command)
   return (node);
 }
 
-t_node		*rec(t_node *node)
+t_node		*create_tree(t_node *node)
 {
   char		**split;
   int		separator_id;
@@ -48,9 +48,9 @@ t_node		*rec(t_node *node)
   node->command = NULL;
   node->separator_id = separator_id;
   node->left = new_node(split[0]);
-  rec(node->left);
+  create_tree(node->left);
   node->right = new_node(split[1]);
-  rec(node->right);
+  create_tree(node->right);
   my_free_tab(split);
   return (node);
 }
@@ -86,7 +86,7 @@ t_globalinfos	*my_tree(char *command, t_globalinfos *info)
   node = new_node(command);
   if (node == NULL)
     return (NULL);
-  if ((node = rec(node)) == NULL)
+  if ((node = create_tree(node)) == NULL)
     return (NULL);
   if ((info = exec(node, fd, info)) == NULL)
     return (NULL);

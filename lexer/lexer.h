@@ -1,11 +1,11 @@
 /*
-** my_command_tab.h for my_command_tab.h in /home/gottin_o/Projets/42sh
+** lexer.h for lexer.h in /home/gottin_o/Projets/42sh
 ** 
 ** Made by gottin_o
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Fri Apr 25 11:55:11 2014 gottin_o
-** Last update Thu May 29 18:17:01 2014 gottin_o
+** Last update Sun Jun  1 13:57:45 2014 voinne_c
 */
 
 #ifndef		LEXER_H_
@@ -83,4 +83,4 @@ char			*epur_str(char *string);
 extern t_sepa		sepa_tab[];
 extern t_syntax		syntax_tab[];
 
-#endif /* MY_COMMAND_TAB_H_ */
+#endif /* LEXER_H_ */

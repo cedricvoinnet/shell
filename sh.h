@@ -1,11 +1,11 @@
 /*
-** 42sh.h for 42sh.h in /home/gottin_o/Projets/42sh
+** 42sh.h for sh.h in /home/gottin_o/Projets/42sh
 ** 
 ** Made by gottin_o
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Tue Apr 29 15:10:53 2014 gottin_o
-** Last update Fri May 30 18:07:17 2014 gottin_o
+** Last update Sun Jun  1 13:56:54 2014 voinne_c
 */
 
 #ifndef		SH_H_
@@ -58,4 +58,4 @@ char		*pass_folder(char *str);
 
 extern char	*g_prompt;
 
-#endif		/* 42sh_H_ */
+#endif		/* SH_H_ */

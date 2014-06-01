@@ -5,7 +5,7 @@
 ** Login   <giudic_a@epitech.net>
 ** 
 ** Started on  Mon May 19 17:23:00 2014 giudic_a
-** Last update Wed May 21 15:17:51 2014 gottin_o
+** Last update Fri May 30 17:06:49 2014 gottin_o
 */
 
 #include <stdio.h>
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "get_next_line.h"
+#include "../sh.h"
 
 char			*re_alloc(char *str, int i)
 {
@@ -27,6 +28,12 @@ char			*re_alloc(char *str, int i)
   return (tmp);
 }
 
+void			*return_backslash()
+{
+  my_putchar('\n');
+  return (NULL);
+}
+
 char			*get_next_line(const int fd)
 {
   static char		buffer[BUFFER_SIZE];
@@ -38,7 +45,7 @@ char			*get_next_line(const int fd)
   if ((str = malloc(BUFFER_SIZE + 2)) == NULL)
     return (NULL);
   if ((c = read(fd, buffer, BUFFER_SIZE)) <= 0)
-    return (NULL);
+    return (return_backslash());
   while (c != 0)
     {
       if (buffer[0] == '\n' || buffer[0] == '\0')

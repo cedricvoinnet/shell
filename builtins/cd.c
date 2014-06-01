@@ -5,7 +5,7 @@
 ** Login   <voinne_c@epitech.net>
 ** 
 ** Started on  Wed Feb 19 08:41:56 2014 voinne_c
-** Last update Sun May 25 15:36:46 2014 voinne_c
+** Last update Fri May 30 00:16:57 2014 gottin_o
 */
 
 #include <unistd.h>
@@ -33,10 +33,12 @@ t_globalinfos	*move_to_folder(t_globalinfos *info, char *folder)
   if (ret == -1)
     {
       printf("42sh: cd: %s: No such file or directory.\n", folder);
+      info->exec_status = 1;
       return (info);
     }
   if ((info = get_old(info)) == NULL)
     return (NULL);
+  info->exec_status = 0;
   return (info);
 }
 
@@ -49,16 +51,19 @@ t_globalinfos	*return_to_home(t_globalinfos *info)
   if (index == -1)
     {
       printf("42sh: cd: HOME not set\n");
+      info->exec_status = 1;
       return (info);
     }
   folder = pass_folder(info->env[index]);
   if (chdir(folder) == -1)
     {
       printf("42sh: cd: %s: No such file or directory.\n", folder);
+      info->exec_status = 1;
       return (info);
     }
   if ((info = get_old(info)) == NULL)
     return (NULL);
+  info->exec_status = 0;
   return (info);
 }
 
@@ -71,17 +76,20 @@ t_globalinfos	*move_to_last(t_globalinfos *info)
   if (index == -1)
     {
       printf("42sh: cd: OLDPWD not set\n");
+      info->exec_status = 1;
       return (info);
     }
   folder = pass_folder(info->env[index]);
   if (chdir(folder) == -1)
     {
       printf("42sh: cd: %s: No such file or directory.\n", folder);
+      info->exec_status = 1;
       return (info);
     }
   printf("%s\n", folder);
   if ((info = get_old(info)) == NULL)
     return (NULL);
+  info->exec_status = 0;
   return (info);
 }
 
@@ -107,5 +115,6 @@ t_globalinfos	*cd(t_globalinfos *info, char **str_tab)
     }
   if ((info = get_pwd(info)) == NULL)
     return (NULL);
+  info->exec_status = 0;
   return (info);
 }

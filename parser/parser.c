@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Mon May 12 19:47:07 2014 gottin_o
-** Last update Sat May 24 15:21:11 2014 gottin_o
+** Last update Fri May 30 15:21:45 2014 gottin_o
 */
 
 #include <stdlib.h>
@@ -23,7 +23,8 @@ t_node		*new_node(char *command)
     return (NULL);
   node->left = NULL;
   node->right = NULL;
-  node->command = strdup(command);
+  if ((node->command = strdup(command)) == NULL)
+    return (NULL);
   node->separator_id = NO_SEP;
   return (node);
 }
@@ -42,6 +43,8 @@ t_node		*rec(t_node *node)
 		 &separator_size, &separator_id);
   split = line_splitter(node->command,
 			where_to_split, separator_size);
+  if (split == NULL)
+    return (NULL);
   node->command = NULL;
   node->separator_id = separator_id;
   node->left = new_node(split[0]);
@@ -58,6 +61,8 @@ t_globalinfos	*exec(t_node *node, int *fd, t_globalinfos *info)
   char		**wordtab;
 
   init_func(tab);
+  if (info == NULL)
+    return (NULL);
   if (node->left == NULL)
     {
       if ((wordtab = my_str_to_wordtab(node->command)) == NULL)
@@ -81,7 +86,8 @@ t_globalinfos	*my_tree(char *command, t_globalinfos *info)
   node = new_node(command);
   if (node == NULL)
     return (NULL);
-  node = rec(node);
+  if ((node = rec(node)) == NULL)
+    return (NULL);
   if ((info = exec(node, fd, info)) == NULL)
     return (NULL);
   free_tree(node);

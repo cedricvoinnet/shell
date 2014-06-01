@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Thu May 15 11:13:22 2014 gottin_o
-** Last update Sun May 25 14:44:01 2014 gottin_o
+** Last update Fri May 30 00:07:50 2014 gottin_o
 */
 
 #include <string.h>
@@ -71,6 +71,7 @@ t_globalinfos	*my_setenv(t_globalinfos *info, char **command_wt)
   if (command_wt[1] == NULL || command_wt[2] == NULL)
     {
       my_putstr("Usage: setenv [VAR_NAME] [CONTENT]\n");
+      info->exec_status = 1;
       return (info);
     }
   var_name = put_char_end(command_wt[1], '=');
@@ -78,8 +79,13 @@ t_globalinfos	*my_setenv(t_globalinfos *info, char **command_wt)
     return (NULL);
   i = locate_var(info->env, var_name);
   if (i == -1)
-    info->env = my_add_env_var(info->env, var_name, command_wt[2]);
+    {
+      if ((info->env = my_add_env_var
+	   (info->env, var_name, command_wt[2])) == NULL)
+	return (NULL);
+    }
   else
     my_var_overwrite(info->env, var_name, command_wt[2], i);
+  info->exec_status = 0;
   return (info);
 }

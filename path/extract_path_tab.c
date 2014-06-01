@@ -5,10 +5,11 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Sun May 11 16:46:37 2014 gottin_o
-** Last update Sun May 25 15:19:34 2014 gottin_o
+** Last update Fri May 30 17:07:03 2014 gottin_o
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "../sh.h"
 
 int	path_tab_size(char *path_line)
@@ -90,7 +91,10 @@ char	**extract_path_tab(char **env)
 
   path = locate_var(env, "PATH=");
   if (path == -1)
-    return (NULL);
+    {
+      printf("Warning, [PATH] not found.\n");
+      return (NULL);
+    }
   size = path_tab_size(env[path]);
   path_tab = malloc(sizeof(char *) * (size + 1));
   if (path_tab == NULL)

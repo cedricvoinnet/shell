@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Fri May 16 17:27:36 2014 gottin_o
-** Last update Sun May 25 15:05:37 2014 gottin_o
+** Last update Thu May 29 17:43:06 2014 gottin_o
 */
 
 #include <string.h>
@@ -17,9 +17,9 @@ int	is_a_file(char *str, char **env)
 {
   (void) env;
   if (access(str, F_OK) == 0)
-    return (FILE);
+    return (1);
   if (check_dir(str) == 1)
-    return (FILE);
+    return (1);
   return (-1);
 }
 
@@ -34,7 +34,7 @@ int	is_a_exe(char *str, char **env)
   if (strncmp(str, "./", 2) == 0)
     str = str + 2;
   if (access(str, X_OK) == 0)
-    return (EXE);
+    return (1);
   exe_with_path = add_path_to_command(str, env);
   if (exe_with_path == NULL)
     return (-1);
@@ -43,7 +43,7 @@ int	is_a_exe(char *str, char **env)
       if (access(exe_with_path[i], X_OK) == 0)
 	{
 	  my_free_tab(exe_with_path);
-	  return (EXE);
+	  return (1);
 	}
       ++i;
     }
@@ -67,20 +67,6 @@ int	is_a_sep(char *str, char **env)
 	}
       ++i;
     }
-  return (-1);
-}
-
-int	is_a_builtin(char *str, char **env)
-{
-  (void) env;
-  if (strcmp(str, "env") == 0)
-    return (BTN);
-  if (strcmp(str, "cd") == 0)
-    return (BTN);
-  if (strcmp(str, "unsetenv") == 0 || strcmp(str, "setenv") == 0)
-    return (BTN);
-  if (strcmp(str, "echo") == 0 || strcmp(str, "exit") == 0)
-    return (BTN);
   return (-1);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Fri Apr 25 11:55:11 2014 gottin_o
-** Last update Sat May 24 12:59:04 2014 gottin_o
+** Last update Thu May 29 18:17:01 2014 gottin_o
 */
 
 #ifndef		LEXER_H_
@@ -23,14 +23,10 @@
 # define	SPACE ' '
 # define	TAB '\t'
 
-# define	FILE 1
-# define	EXE 2
-# define	SEP 3
-# define	LRED 4
-# define	RRED 5
-# define	ARG 6
-# define	BTN 7
-# define	SMC 8
+# define	OTH 1
+# define	SEP 2
+# define	RED 3
+# define	SMC 4
 # define	END 0
 
 #include	"../sh.h"
@@ -68,14 +64,13 @@ int			is_a_sep(char *str, char **env);
 int			is_a_file(char *str, char **env);
 int			is_a_exe(char *str, char **env);
 int			is_a_semicolon(char *str, char **env);
-int			is_a_left_red(char *str, char **env);
-int			is_a_right_red(char *str, char **env);
-int			is_a_builtin(char *str, char **env);
-int			is_a_arg(char *str, char **env);
+int			is_a_red(char *str, char **env);
+int			is_other(char *str, char **env);
 int			put_in_list(t_instructions **list, char *instruction);
 int			print_typo_error(char *name);
 int			print_no_such_file(char *name);
 int			print_unexp_token(char *name);
+int			print_newline_error(void);
 int			check_compatibility(int type1, int type2);
 int			gere_error(int type1, char *str, char *str2);
 int			check_syntax(t_instructions *list);

@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Mon May 12 19:48:32 2014 gottin_o
-** Last update Sat May 24 14:13:47 2014 gottin_o
+** Last update Thu May 29 22:38:18 2014 gottin_o
 */
 
 #ifndef		MY_TREE_H_
@@ -59,7 +59,7 @@ int		rightmost_sepa_position(char *str, int sepa_index, int *separator);
 int		create_if_not_exists(char *filename);
 int		split_next(char *str, int *priority, int i);
 int		split_position(char *str);
-
+int		print_typo_error(char *name);
 int		write_open_file(char *filename, int way);
 int		read_open_file(char *filename);
 int		get_sepa_infos(char *str, int position, int *separator_size, int *separator_id);

@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Tue May 20 16:54:47 2014 gottin_o
-** Last update Sun May 25 13:14:23 2014 gottin_o
+** Last update Fri May 30 16:14:16 2014 gottin_o
 */
 
 #include <unistd.h>
@@ -26,29 +26,41 @@ static const t_builtin	g_pars[]=
     {NULL, 0, NULL}
   };
 
-int	execute(char **wordtab, t_globalinfos *info)
+char	*command_prepare(char *command, t_globalinfos *info)
 {
   char	**path_tab;
   char	*command_with_path;
   int	i;
 
   i = 0;
-  if (strncmp(wordtab[0], "./", 2) == 0)
-    wordtab[0] = wordtab[0] + 2;
-  if (access(wordtab[0], X_OK) == 0)
-    command_with_path = strdup(wordtab[0]);
-  else
-    {	  
-      if ((path_tab = add_path_to_command(wordtab[0], info->env)) == NULL)
-	return (FAILURE);
-      while (path_tab[i] != NULL)
+  if (strncmp(command, "./", 2) == 0)
+    command = command + 2;
+  if (access(command, X_OK) == 0)
+    return (strdup(command));
+  if ((path_tab = add_path_to_command(command, info->env)) == NULL)
+    return (NULL);
+  while (path_tab[i] != NULL)
+    {
+      if (access(path_tab[i], X_OK) == 0)
 	{
-	  if (access(path_tab[i], X_OK) == 0)
-	    command_with_path = strdup(path_tab[i]);
-	  ++i;
+	  command_with_path = strdup(path_tab[i]);
+	  my_free_tab(path_tab);
+	  return (command_with_path);
 	}
-      my_free_tab(path_tab);
+      ++i;
     }
+  print_typo_error(command);
+  my_free_tab(path_tab);
+  return (NULL);
+}
+
+int	execute(char **wordtab, t_globalinfos *info)
+{
+  char	*command_with_path;
+
+  command_with_path = command_prepare(wordtab[0], info);
+  if (command_with_path == NULL)
+    return (FAILURE);
   if (execve(command_with_path, wordtab, info->env) == -1)
     return (FAILURE);
   free(command_with_path);
@@ -58,7 +70,7 @@ int	execute(char **wordtab, t_globalinfos *info)
 int	is_builtin_exec(char **wordtab)
 {
   int	i;
-  
+
   i = 0;
   if (wordtab != NULL)
     {
@@ -71,7 +83,7 @@ int	is_builtin_exec(char **wordtab)
   return (-1);
 }
 
-t_globalinfos	*exe_prepare(char **wordtab, t_globalinfos *info)
+t_globalinfos	*exe_fork(char **wordtab, t_globalinfos *info)
 {
   int		pid;
   int		status;
@@ -82,7 +94,7 @@ t_globalinfos	*exe_prepare(char **wordtab, t_globalinfos *info)
   if (pid == 0)
     {
       if (execute(wordtab, info) == FAILURE)
-        exit(FAILURE);
+	exit(FAILURE);
     }
   else
     {
@@ -106,7 +118,7 @@ t_globalinfos	*exec_launch(char **wordtab, t_globalinfos *info)
     }
   else
     {
-      if ((info = exe_prepare(wordtab, info)) == NULL)
+      if ((info = exe_fork(wordtab, info)) == NULL)
 	return (NULL);
     }
   return (info);

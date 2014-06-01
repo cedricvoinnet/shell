@@ -5,7 +5,7 @@
 ** Login   <giudic_a@epitech.net>
 ** 
 ** Started on  Fri May 16 16:58:07 2014 Aurélien Giudici
-** Last update Wed May 21 15:58:09 2014 gottin_o
+** Last update Fri May 30 17:51:55 2014 gottin_o
 */
 
 #include <stdlib.h>
@@ -19,14 +19,15 @@ char	*epur_str(char *string)
 
   i = 0;
   j = 0;
-  str = malloc((strlen(string) + 1) * sizeof(char));
-  if (str == NULL)
+  if (string[0] == '\0')
+    return (string);
+  if ((str = malloc((strlen(string) + 1) * sizeof(char))) == NULL)
     return (NULL);
   while (string[j] != '\0')
     {
       while (string[j] == ' ' || string[j] == '\t')
-	j += 1;
-      while (string[j] != ' ' && string[j] != '\t' && string[j])
+	++j;
+      while (string[j] && string[j] != ' ' && string[j] != '\t')
 	{
 	  str[i++] = string[j++];
 	  str[i] = 0;
@@ -36,5 +37,6 @@ char	*epur_str(char *string)
       if (string[j] == '\0' && (str[i - 1] == ' ' || str[i - 1] == '\t'))
 	str[i - 1] = '\0';
     }
+  free(string);
   return (str);
 }

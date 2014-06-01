@@ -5,7 +5,7 @@
 ** Login   <gazzol_j@epitech.net>
 ** 
 ** Started on  Tue May 20 18:04:53 2014 a
-** Last update Sun May 25 15:02:34 2014 gottin_o
+** Last update Fri May 30 00:06:21 2014 gottin_o
 */
 
 #include <stdlib.h>
@@ -79,11 +79,16 @@ t_globalinfos	*my_echo(t_globalinfos *info, char **command_wt)
   if (command_wt[1] == NULL)
     {
       my_putchar('\n');
+      info->exec_status = 0;
       return (info);
     }
   if (echo_aff(command_wt, info->env) == -1)
-    return (info);
+    {
+      info->exec_status = 1;
+      return (info);
+    }
   if (n_option(command_wt) != 1)
     my_putchar('\n');
+  info->exec_status = 0;
   return (info);
 }

@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Fri May 16 23:14:54 2014 gottin_o
-** Last update Sun May 25 13:19:56 2014 gottin_o
+** Last update Thu May 29 22:41:29 2014 gottin_o
 */
 
 #include <stdlib.h>
@@ -16,7 +16,7 @@ int			lexer(char *str, t_globalinfos *info)
 {
   t_instructions        *list;
 
-  if ((list = copy_in_list(epur_str(str))) == NULL)
+  if ((list = copy_in_list(str)) == NULL)
     return (-1);
   assign_types(list, info->env);
   if (check_syntax(list) == -1)

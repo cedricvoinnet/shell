@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Mon May 19 18:26:53 2014 gottin_o
-** Last update Wed May 21 17:34:28 2014 gottin_o
+** Last update Fri May 30 15:35:28 2014 gottin_o
 */
 
 #include <stdlib.h>
@@ -43,5 +43,6 @@ char	*get_prompt(char **env)
   strcat(prompt, user);
   strcat(prompt, "@");
   strcat(prompt, PROMPT_END);
+  g_prompt = strdup(prompt);
   return (prompt);
 }

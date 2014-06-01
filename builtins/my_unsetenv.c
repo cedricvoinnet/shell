@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Thu May 15 11:17:14 2014 gottin_o
-** Last update Sat May 24 14:09:09 2014 gottin_o
+** Last update Fri May 30 00:08:36 2014 gottin_o
 */
 
 #include <string.h>
@@ -50,6 +50,7 @@ t_globalinfos	*my_unsetenv(t_globalinfos *info, char **command_wt)
   if (command_wt[1] == NULL)
     {
       printf("Usage: unsetenv [VAR_NAME]\n");
+      info->exec_status = 1;
       return (info);
     }
   var_name = put_char_end(command_wt[1], '=');
@@ -57,8 +58,11 @@ t_globalinfos	*my_unsetenv(t_globalinfos *info, char **command_wt)
   if (i == -1)
     {
       printf("Unable to find the variable : %s\n", command_wt[1]);
+      info->exec_status = 1;
       return (info);
     }
-  info->env = my_delete_env_var(info->env, i);
+  if ((info->env = my_delete_env_var(info->env, i)) == NULL)
+    return (NULL);
+  info->exec_status = 0;
   return (info);
 }

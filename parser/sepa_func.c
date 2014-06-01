@@ -5,7 +5,7 @@
 ** Login   <voinne_c@epitech.net>
 ** 
 ** Started on  Mon May 12 21:55:19 2014 voinne_c
-** Last update Sun May 25 14:59:16 2014 gottin_o
+** Last update Fri May 30 15:24:42 2014 gottin_o
 */
 
 #include <stdio.h>
@@ -17,30 +17,40 @@
 
 t_globalinfos	*semicolon(t_node *node, int *fd, t_globalinfos *info)
 {
-  info = exec(node->left, fd, info);
+  if ((info = exec(node->left, fd, info)) ==  NULL)
+    return (NULL);
   if (info->exit_now == 1)
     return (info);
   if (node->right->separator_id != NO_SEP || node->right->command[0] != 0)
-    info = exec(node->right, fd, info);
+    {
+      if ((info = exec(node->right, fd, info)) == NULL)
+	return (NULL);
+    }
   return (info);
 }
 
 t_globalinfos	*func_or(t_node *node, int *fd, t_globalinfos *info)
 {
-  info = exec(node->left, fd, info);
+  if ((info = exec(node->left, fd, info)) == NULL)
+    return (NULL);
   if (info->exec_status == 0 || info->exit_now == 1)
     return (info);
   else
-    info = exec(node->right, fd, info);
+    {
+      if ((info = exec(node->right, fd, info)) == NULL)
+	return (NULL);
+    }
   return (info);
 }
 
 t_globalinfos	*func_and(t_node *node, int *fd, t_globalinfos *info)
 {
-  info = exec(node->left, fd, info);
+  if ((info = exec(node->left, fd, info)) == NULL)
+    return (NULL);
   if (info->exec_status != 0 || info->exit_now == 1)
     return (info);
-  info = exec(node->right, fd, info);
+  if ((info = exec(node->right, fd, info)) == NULL)
+    return (NULL);
   return (info);
 }
 
@@ -60,15 +70,18 @@ t_globalinfos	*pipe2(t_node *node, t_globalinfos * info, int *fd, int *pipefd)
       exit(0);
     }
   else
-    wait(&status);
+    {
+      close(pipefd[0]);
+      waitpid(pid, &status, 0);
+    }
   return (info);
 }
 
 t_globalinfos	*func_pipe(t_node *node, int *fd, t_globalinfos *info)
 {
-  int	pipefd[2];
-  int	pid;
-  int	status;
+  int		pipefd[2];
+  int		pid;
+  int		status;
 
   if (pipe(pipefd) == -1)
     return (NULL);
@@ -83,9 +96,10 @@ t_globalinfos	*func_pipe(t_node *node, int *fd, t_globalinfos *info)
     }
   else
     {
-      wait(&status);
+      close(pipefd[1]);
       if (pipe2(node, info, fd, pipefd) == NULL)
 	return (NULL);
+      waitpid(pid, &status, 0);
     }
   return (info);
 }

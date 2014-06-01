@@ -5,7 +5,7 @@
 ## Login   <gottin_o@epitech.net>
 ## 
 ## Started on  Fri Apr 25 12:08:20 2014 gottin_o
-## Last update Sun May 25 15:06:27 2014 gottin_o
+## Last update Fri May 30 18:07:32 2014 gottin_o
 ##
 
 NAME =		42sh
@@ -33,7 +33,6 @@ SRC =		42sh.c \
 		lexer/copy_in_list.c \
 		lexer/lexer.c \
 		lexer/put_in_list.c \
-		lexer/display_errors.c \
 		parser/line_splitter.c \
 		parser/parser.c \
 		parser/redir_func.c \
@@ -55,6 +54,7 @@ SRC =		42sh.c \
 		tools/my_getnbr.c \
 		tools/get_next_line.c \
 		tools/free_tree.c \
+		tools/display_errors.c \
 		tools/finish.c
 
 OBJ =		$(SRC:.c=.o)

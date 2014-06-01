@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Tue Apr 29 19:47:05 2014 gottin_o
-** Last update Sat May 24 17:45:29 2014 gottin_o
+** Last update Fri May 30 00:04:51 2014 gottin_o
 */
 
 #include <stdio.h>
@@ -26,5 +26,6 @@ t_globalinfos	*env_reader(t_globalinfos *info, char **tab)
 	  ++i;
 	}
     }
+  info->exec_status = 0;
   return (info);
 }

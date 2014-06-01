@@ -5,13 +5,13 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Fri Apr 25 12:04:10 2014 gottin_o
-** Last update Sun May 25 13:19:18 2014 gottin_o
+** Last update Thu May 29 17:53:27 2014 gottin_o
 */
 
-#include <stdlib.h>
-#include "../lexer/lexer.h"
+#include	<stdlib.h>
+#include	"../lexer/lexer.h"
 
-t_sepa	sepa_tab[] =
+t_sepa		sepa_tab[] =
   {
     {SEMICOLON, 1, 1},
     {OR, 2, 2},
@@ -26,13 +26,9 @@ t_sepa	sepa_tab[] =
 
 t_syntax        syntax_tab[] =
   {
-    {FILE, (int []) {FILE, ARG, SEP, RRED, SMC, END}},
-    {EXE, (int []) {FILE, SMC, ARG, SEP, LRED, RRED, END}},
-    {SEP, (int []) {EXE, RRED, BTN, END}},
-    {RRED, (int []) {FILE, ARG, END}},
-    {LRED, (int []) {FILE, END}},
-    {BTN, (int[]) {FILE, ARG, SMC, LRED, RRED, SEP, END}},
-    {SMC, (int[]) {EXE, LRED, RRED, BTN, END}},
-    {ARG, (int []) {FILE, SEP, LRED, RRED, ARG, SMC, END}},
+    {OTH, (int []) {OTH, SMC, RED, SEP, END}},
+    {SEP, (int []) {OTH, RED, END}},
+    {RED, (int []) {OTH, END}},
+    {SMC, (int[]) {OTH, RED, END}},
     {0, (int []) {END}},
   };

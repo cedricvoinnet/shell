@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Tue May 13 15:42:14 2014 gottin_o
-** Last update Tue May 20 16:50:05 2014 gottin_o
+** Last update Fri May 30 00:15:02 2014 gottin_o
 */
 
 #include <stdlib.h>
@@ -17,6 +17,14 @@ char	*get_left_part(char *str, int split_pos)
   char	*left;
   int	size;
 
+  if (split_pos == 0)
+    {
+      if ((left = malloc(sizeof(char) * 2)) == NULL)
+	return (NULL);
+      left[0] = 0;
+      left[1] = 0;
+      return (left);
+    }
   while (str[split_pos - 1] == ' ')
     --split_pos;
   size = split_pos + 1;
@@ -38,7 +46,7 @@ char	*get_right_part(char *str, int split_pos, int sepa_size)
   i = split_pos + sepa_size;
   j = 0;
   size = strlen(str) - (split_pos + sepa_size);
-  right = malloc(sizeof(char) * size);
+  right = malloc(sizeof(char) * (size + 1));
   if (right == NULL)
     return (NULL);
   while (str[i] == ' ')

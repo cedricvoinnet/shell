@@ -5,7 +5,7 @@
 ** Login   <gottin_o@epitech.net>
 ** 
 ** Started on  Tue Apr 29 15:10:53 2014 gottin_o
-** Last update Sun May 25 13:45:09 2014 gottin_o
+** Last update Fri May 30 18:07:17 2014 gottin_o
 */
 
 #ifndef		SH_H_
@@ -14,13 +14,6 @@
 # define	DEFAULT_USER "user"
 # define	PROMPT_END "42sh > \0"
 # define	EXIT_FAIL -1
-
-typedef struct	s_hist
-{
-  char		*command;
-  int		last;
-  struct s_hist	*next;
-}               t_hist;
 
 typedef struct	s_globalinfos
 {
@@ -62,5 +55,7 @@ char		*get_prompt(char **env);
 char		*get_next_line(const int fd);
 char		*put_char_end(char *str, char character);
 char		*pass_folder(char *str);
+
+extern char	*g_prompt;
 
 #endif		/* 42sh_H_ */
